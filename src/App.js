@@ -20,7 +20,7 @@ function App() {
         }}
       >
         <Routes>
-          <Route exact path="/" element={<Navigate replace to="/task" />} />
+          {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
           <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
