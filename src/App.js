@@ -35,8 +35,10 @@ function App() {
         }}
       >
         <Routes>
-          <Route exact path="/reflect" element={<Navigate replace to="/reflect/task/1" />} />
+          <Route exact path="/reflect" element={<Navigate replace to="/reflect/task" />} />
+          <Route exact path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
           <Route path="/reflect/task/:taskId" element={<TaskReflect />} />
+          <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
       </ConfigProvider>
