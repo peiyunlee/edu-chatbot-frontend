@@ -34,8 +34,8 @@ function TaskList({ isSomeone, title }) {
                     <div>
                         <div className="text-gray-400 font-bold flex px-2 mb-2">
                             <span className="flex-1 mr-4">任務</span>
-                            <span className="w-12 text-center mr-4">進度</span>
-                            <span className="w-12 text-center">完成日</span>
+                            <span className="w-14 text-center mr-4">進度</span>
+                            <span className="w-14 text-center">完成日</span>
                         </div>
                         <div className="grid gap-2">
                             <Task />
