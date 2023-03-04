@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
-
-import TaskHeader from "../../components/task/TaskHeader";
 import { Input } from 'antd';
+import TaskHeader from "../../components/task/TaskHeader";
+
 const { TextArea } = Input;
 
 function EditTask() {
@@ -28,7 +28,7 @@ function EditTask() {
         <div className='grid gap-2'>
           <span className='font-bold mr-4'>怎麼進行</span>
           <span className='font-bold text-gray-400 mr-4'>怎麼討論怎麼進行</span>
-          <TextArea className='flex-1' rows={4}/>
+          <TextArea className='flex-1' rows={3}/>
         </div>
         <div className='grid gap-2'>
           <span className='font-bold mr-4'>繳交日期</span>
