@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
 
-function TaskHome() {
-  const navigate = useNavigate();
 
+function TaskHome() {
   return (
     <div>
       <TaskHeader canClickNext={true} />

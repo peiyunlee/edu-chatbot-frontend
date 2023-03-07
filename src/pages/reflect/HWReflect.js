@@ -41,7 +41,7 @@ function HWReflect() {
                     href="/#" 
                     className="mx-4 block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" 
                     onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>
-                        {isReflectFormComplete ? "確認":"填寫成果回饋"}
+                        {isHWCheckComplete ? "確認":"填寫成果回饋"}
                     </a> :
                     <></>
             }
