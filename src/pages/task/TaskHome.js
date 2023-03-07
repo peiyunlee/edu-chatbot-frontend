@@ -1,10 +1,30 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import liff from '@line/liff';
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
 
+
 function TaskHome() {
   const navigate = useNavigate();
+  const [lineAccessToken,setLineAccessToken ] = useState(null)
+
+  useEffect(() => {
+    liff.init({
+      　liffId: '1660700459-XZKAApq7'
+      }).then(() => {
+        if (liff.isLoggedIn()) {
+         const accessToken = liff.getAccessToken();
+      
+         console.log("getAccessToken", accessToken);
+         setLineAccessToken(accessToken)
+        }
+      }
+      ).catch((err) => {
+       console.log('初始化失敗')
+      })
+  }, [])
+  
 
   return (
     <div>
