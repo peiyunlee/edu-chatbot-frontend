@@ -70,7 +70,7 @@ function InitializeLiff(){
     liff.init({
       liffId: '1660700459-XZKAApq7'
     })
-      .then(() => {
+      .then(async () => {
         console.log("初始化成功")
         console.log(liff.isLoggedIn())
         if(liff.isLoggedIn()){
@@ -78,7 +78,7 @@ function InitializeLiff(){
           const accessToken = liff.getAccessToken();
           setLineAccessToken(accessToken)
           if (accessToken) {
-            const response = getLineUserProfile(accessToken)
+            const response = await getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
             navigate(`/task/hw/1`)
           }
