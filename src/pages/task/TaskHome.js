@@ -3,11 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
+import { useEffect } from 'react';
 
 
 function TaskHome() {
   const navigate = useNavigate();  
   const lineUserProfile = useSelector((state) => state.lineUserProfile);
+
+  useEffect(() => {
+    console.log(lineUserProfile)
+  }, [])
+  
 
   return (
     <div>
