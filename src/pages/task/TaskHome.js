@@ -12,7 +12,7 @@ function TaskHome() {
 
   useEffect(() => {
     console.log(lineUserProfile)
-  }, [])
+  }, [lineUserProfile])
   
 
   return (
