@@ -13,6 +13,7 @@ import HWReflect from "./pages/reflect/HWReflect"
 import { updateLineUserProfile } from "./store/action";
 
 function App() {
+  const lineUserProfile = useSelector((state) => state.lineUserProfile);
   return (
     <BrowserRouter>
       <ConfigProvider
@@ -24,8 +25,8 @@ function App() {
       >
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route exact path="/task" element={<InitializeLiff />} />
-          <Route path="/task/hw/:HWNo" element={<TaskHome />} />
+          {!lineUserProfile ? <Route path="/task" element={<InitializeLiff />} /> : <></>}
+          <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
@@ -44,6 +45,7 @@ function App() {
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
+        {!lineUserProfile ? <InitializeLiff /> : <></> }
       </ConfigProvider>
     </BrowserRouter>
   );
@@ -53,12 +55,12 @@ export default App;
 
 
 function InitializeLiff(){
-  const lineUserProfile = useSelector((state) => state.lineUserProfile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [lineAccessToken, setLineAccessToken] = useState(null)
 
   useEffect(() => {
+    console.log("liff")
     initializeLiff()
   }, [lineAccessToken])
 
@@ -67,15 +69,14 @@ function InitializeLiff(){
     liff.init({
       liffId: '1660700459-XZKAApq7'
     })
-      .then(() => {
+      .then(async () => {
         console.log("初始化成功")
-        console.log(liff.isLoggedIn())
         if(liff.isLoggedIn()){
           console.log("取得accessToken");
           const accessToken = liff.getAccessToken();
           setLineAccessToken(accessToken)
           if (accessToken) {
-            const response = getLineUserProfile(accessToken)
+            const response = await getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
             navigate(`/task/hw/1`)
           }

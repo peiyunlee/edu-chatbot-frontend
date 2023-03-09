@@ -11,7 +11,7 @@ export const getLineUserProfile = async (accessToken) => {
         })
 
         console.log(response)
-        return response.json();
+        return response.data;
 
     } catch (err) {
         console.log(err.response);
