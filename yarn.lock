@@ -8642,6 +8642,11 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-liff@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-liff/-/react-liff-2.1.0.tgz#190bb1b1cde7523bca3f0bdeb26973c41a2657dd"
+  integrity sha512-xJgUxuIZsP4KOFc9a94FcEZ3UH9LViwg671Kt0DFHCX4f+Fc63W13btHFSjG8wnq+nZYNrKF8qqRbKjqfj5q+Q==
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"

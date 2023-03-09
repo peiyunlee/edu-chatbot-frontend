@@ -1,6 +1,9 @@
 import "./styles/App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { ConfigProvider } from 'antd';
+import { useEffect, useState } from 'react';
+import liff from '@line/liff';
+import { getLineUserProfile } from './api/lineAPI';
 
 import TaskHome from "./pages/task/TaskHome";
 import AddTask from "./pages/task/AddTask";
@@ -11,7 +14,6 @@ import HWReflect from "./pages/reflect/HWReflect"
 function App() {
   return (
     <BrowserRouter>
-
       <ConfigProvider
         theme={{
           token: {
@@ -21,7 +23,7 @@ function App() {
       >
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
+          <Route exact path="/task" element={<InitializeLiff />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
@@ -47,3 +49,42 @@ function App() {
 }
 
 export default App;
+
+
+function InitializeLiff(){
+  const navigate = useNavigate();
+  const [lineProfile, setLineProfile] = useState(null)
+  const [lineAccessToken, setLineAccessToken] = useState(null)
+
+  useEffect(() => {
+    initializeLiff()
+  }, [lineAccessToken])
+
+  const initializeLiff = () => {
+    console.log("liff init")
+    liff.init({
+      liffId: '1660700459-XZKAApq7'
+    })
+      .then(() => {
+        console.log("初始化成功")
+        console.log(liff.isLoggedIn())
+        if(liff.isLoggedIn()){
+          console.log("取得accessToken");
+          const accessToken = liff.getAccessToken();
+          setLineAccessToken(accessToken)
+          if (accessToken) {
+            const response = getLineUserProfile(accessToken)
+            setLineProfile(response)
+            navigate(`/task/hw/1`)
+          }
+        }
+        else{
+          console.log("沒登入")
+          liff.login()
+        }
+      })
+      .catch((err) => {
+        console.log("初始化失敗", err);
+      });
+  }
+}
