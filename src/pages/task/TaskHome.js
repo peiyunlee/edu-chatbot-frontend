@@ -1,13 +1,10 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
-import { useEffect } from 'react';
 
 
-function TaskHome() {
-  const lineUserProfile = useSelector((state) => state.lineUserProfile);
+function TaskHome({lineUserProfile}) {
   const navigate = useNavigate();  
 
   return (
