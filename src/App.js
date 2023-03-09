@@ -22,7 +22,6 @@ function App() {
           },
         }}
       >
-        <InitializeLiff />
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
           <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
@@ -45,6 +44,7 @@ function App() {
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
+        <InitializeLiff />
       </ConfigProvider>
     </BrowserRouter>
   );
