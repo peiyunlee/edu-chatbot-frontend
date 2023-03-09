@@ -2,14 +2,15 @@ import "./styles/App.css";
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import liff from '@line/liff';
 import { getLineUserProfile } from './api/lineAPI';
-
 import TaskHome from "./pages/task/TaskHome";
 import AddTask from "./pages/task/AddTask";
 import EditTask from "./pages/task/EditTask";
 import TaskReflect from "./pages/reflect/TaskReflect"
 import HWReflect from "./pages/reflect/HWReflect"
+import { updateLineUserProfile } from "./store/action";
 
 function App() {
   return (
@@ -52,8 +53,9 @@ export default App;
 
 
 function InitializeLiff(){
+  const lineUserProfile = useSelector((state) => state.lineUserProfile);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [lineProfile, setLineProfile] = useState(null)
   const [lineAccessToken, setLineAccessToken] = useState(null)
 
   useEffect(() => {
@@ -74,7 +76,7 @@ function InitializeLiff(){
           setLineAccessToken(accessToken)
           if (accessToken) {
             const response = getLineUserProfile(accessToken)
-            setLineProfile(response)
+            dispatch(updateLineUserProfile(response))
             navigate(`/task/hw/1`)
           }
         }

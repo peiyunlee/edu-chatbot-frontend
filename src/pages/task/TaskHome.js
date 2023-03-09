@@ -1,11 +1,19 @@
+
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
 
 
 function TaskHome() {
+  const navigate = useNavigate();  
+  const lineUserProfile = useSelector((state) => state.lineUserProfile);
+
+
   return (
     <div>
       <TaskHeader canClickNext={true} />
+      <h1>line:{lineUserProfile.userId ? lineUserProfile.userId : "none"}</h1>
       <section className="px-4 py-3 grid gap-4">
         <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate('/task/hw/1/create'); e.preventDefault(); }}>新增任務</a>
         <TaskList isSomeone={false} title={"尚未分配！"} />
