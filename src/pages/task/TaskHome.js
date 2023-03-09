@@ -9,7 +9,6 @@ function TaskHome() {
   const navigate = useNavigate();  
   const lineUserProfile = useSelector((state) => state.lineUserProfile);
 
-
   return (
     <div>
       <TaskHeader canClickNext={true} />

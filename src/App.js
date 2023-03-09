@@ -22,9 +22,10 @@ function App() {
           },
         }}
       >
+        <InitializeLiff />
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route exact path="/task" element={<InitializeLiff />} />
+          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
@@ -59,7 +60,8 @@ function InitializeLiff(){
   const [lineAccessToken, setLineAccessToken] = useState(null)
 
   useEffect(() => {
-    initializeLiff()
+    if (!lineUserProfile)
+      initializeLiff()
   }, [lineAccessToken])
 
   const initializeLiff = () => {
