@@ -13,7 +13,6 @@ import HWReflect from "./pages/reflect/HWReflect"
 import { updateLineUserProfile } from "./store/action";
 
 function App() {
-  const lineUserProfile = useSelector((state) => state.lineUserProfile);
   return (
     <BrowserRouter>
       <ConfigProvider
@@ -26,7 +25,7 @@ function App() {
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
           <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
-          <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
+          <Route path="/task/hw/:HWNo" element={<TaskHome />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
@@ -71,7 +70,7 @@ function InitializeLiff(){
     liff.init({
       liffId: '1660700459-XZKAApq7'
     })
-      .then(async () => {
+      .then(() => {
         console.log("初始化成功")
         console.log(liff.isLoggedIn())
         if(liff.isLoggedIn()){
@@ -79,7 +78,7 @@ function InitializeLiff(){
           const accessToken = liff.getAccessToken();
           setLineAccessToken(accessToken)
           if (accessToken) {
-            const response = await getLineUserProfile(accessToken)
+            const response = getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
             navigate(`/task/hw/1`)
           }

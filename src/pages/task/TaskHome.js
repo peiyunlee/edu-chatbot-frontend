@@ -6,7 +6,8 @@ import TaskList from "../../components/task/TaskList";
 import { useEffect } from 'react';
 
 
-function TaskHome({lineUserProfile}) {
+function TaskHome() {
+  const lineUserProfile = useSelector((state) => state.lineUserProfile);
   const navigate = useNavigate();  
 
   return (
