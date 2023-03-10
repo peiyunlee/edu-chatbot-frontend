@@ -23,10 +23,9 @@ function App() {
           },
         }}
       >
-        {!lineUserProfile ? <InitializeLiff /> : <></> }
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
+          {!lineUserProfile ? <Route path="/task" element={<InitializeLiff />} /> : <></>}
           <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
@@ -46,6 +45,7 @@ function App() {
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
+        {!lineUserProfile ? <InitializeLiff /> : <></> }
       </ConfigProvider>
     </BrowserRouter>
   );
