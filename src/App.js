@@ -23,10 +23,9 @@ function App() {
           },
         }}
       >
-        <InitializeLiff />
         <Routes>
           {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
+          <Route exact path="/task/hw" element={<InitializeLiff />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask />} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
