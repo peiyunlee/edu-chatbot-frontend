@@ -84,7 +84,6 @@ function InitializeLiff(){
           console.log("沒登入")
           liff.login()
         }
-        setLineIsLoggined(liff.isLoggedIn())
       })
       .catch((err) => {
         console.log("初始化失敗", err);
