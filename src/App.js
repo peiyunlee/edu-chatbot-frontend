@@ -55,17 +55,13 @@ export default App;
 
 
 function InitializeLiff(){
-  const lineUserProfile = useSelector((state) => state.lineUserProfile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [lineAccessToken, setLineAccessToken] = useState(null)
-  const [lineIsLoggined, setLineIsLoggined] = useState(null)
 
   useEffect(() => {
-    console.log(lineUserProfile)
-    if (!lineUserProfile)
-      initializeLiff()
-  }, [lineIsLoggined])
+    initializeLiff()
+  }, [lineAccessToken])
 
   const initializeLiff = () => {
     console.log("liff init")
