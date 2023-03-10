@@ -59,12 +59,13 @@ function InitializeLiff(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [lineAccessToken, setLineAccessToken] = useState(null)
+  const [lineIsLoggined, setLineIsLoggined] = useState(null)
 
   useEffect(() => {
     console.log(lineUserProfile)
     if (!lineUserProfile)
       initializeLiff()
-  }, [lineAccessToken])
+  }, [lineIsLoggined])
 
   const initializeLiff = () => {
     console.log("liff init")
@@ -73,7 +74,6 @@ function InitializeLiff(){
     })
       .then(async () => {
         console.log("初始化成功")
-        console.log(liff.isLoggedIn())
         if(liff.isLoggedIn()){
           console.log("取得accessToken");
           const accessToken = liff.getAccessToken();
@@ -88,6 +88,7 @@ function InitializeLiff(){
           console.log("沒登入")
           liff.login()
         }
+        setLineIsLoggined(liff.isLoggedIn())
       })
       .catch((err) => {
         console.log("初始化失敗", err);
