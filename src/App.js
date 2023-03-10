@@ -60,6 +60,7 @@ function InitializeLiff(){
   const [lineAccessToken, setLineAccessToken] = useState(null)
 
   useEffect(() => {
+    console.log("liff")
     initializeLiff()
   }, [lineAccessToken])
 

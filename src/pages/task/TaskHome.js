@@ -1,11 +1,17 @@
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import TaskHeader from "../../components/task/TaskHeader";
 import TaskList from "../../components/task/TaskList";
 
 
 function TaskHome({lineUserProfile}) {
   const navigate = useNavigate();  
+
+  useEffect(() => {
+    console.log("task")
+  }, [])
+
 
   return (
     <div>
