@@ -32,13 +32,13 @@ function TaskHeader({ canClickNext=false }) {
     <header className="h-header px-4 bg-green-400 text-white flex justify-between items-center">
       <div className="grid grid-flow-col gap-2 items-center">
         <h1 className="font-bold text-lg">第{HWNo == 1 ? '一' : HWNo == 2 ? '二' : '三'}階段作業</h1>
-        <span className="ml-2">繳交日期 {homework ? homework['hand_over_date']: 'none'}</span>
+        <span className="ml-2">繳交日期 {homework ? homework['hand_over_date']: ''}</span>
       </div>
-      {
+      {/* {
         canClickNext ?
           <a className="flex p-1 pr-0" href="/#" onClick={(e) => {handleClickNext(); e.preventDefault(); }}><DoubleRightOutlined style={{ fontSize: "16px" }} /></a> :
           <></>
-      }
+      } */}
     </header>
   );
 }

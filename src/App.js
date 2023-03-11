@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
@@ -39,9 +39,9 @@ function App() {
         }}
       >
         <Routes>
-          <Route exact path="/reflect" element={<Navigate replace to="/reflect/task" />} />
+          <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
           {!lineUserProfile ? <Route path="/reflect/task" element={<InitializeLiff />} /> : <></>}
-          <Route exact path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
+          <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
           <Route path="/reflect/task/:taskId" element={<TaskReflect />} />
           {!lineUserProfile ? <Route path="/reflect/hw" element={<InitializeLiff />} /> : <></>}
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
@@ -59,6 +59,7 @@ export default App;
 function InitializeLiff(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [lineAccessToken, setLineAccessToken] = useState(null)
 
   useEffect(() => {
@@ -80,7 +81,7 @@ function InitializeLiff(){
           if (accessToken) {
             const response = await getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
-            navigate(`/task/hw/1`)
+            navigate(location)
           }
         }
         else{
