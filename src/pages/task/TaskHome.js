@@ -16,8 +16,10 @@ function TaskHome({lineUserProfile}) {
   }])
 
   useEffect(() => {
-    setUpTaskLists()
-  }, [HWNo])
+    if (lineUserProfile) {
+      setUpTaskLists()
+    }
+  }, [HWNo,lineUserProfile])
 
   const setUpTaskLists = async () => {
     const res_tasks = await getTaskList(lineUserProfile.userId, HWNo)

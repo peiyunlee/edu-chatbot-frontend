@@ -81,7 +81,6 @@ function InitializeLiff(){
           if (accessToken) {
             const response = await getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
-            console.log(location)
             navigate(location)
           }
         }
