@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = "http://localhost:4000"
+// const baseURL = "http://localhost:4000"
+const baseURL = "https://edu-chatbot-server.onrender.com"
 
 export const getGroupMembersByLUID = async (lineUserId) => {
     try {
