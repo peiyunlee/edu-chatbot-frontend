@@ -7,3 +7,13 @@ export function updateLineUserProfile(profile) {
     payload: { profile }
   };
 }
+
+export const UPDATE_TASK_LIST = "UPDATE_TASK_LIST";
+
+// action creator
+export function updateTaskList(taskList) {
+  return {
+    type: UPDATE_TASK_LIST,
+    payload: { taskList }
+  };
+}
