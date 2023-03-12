@@ -31,7 +31,7 @@ function App() {
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
       </ConfigProvider>
-      {/* <ConfigProvider
+      <ConfigProvider
         theme={{
           token: {
             colorPrimary: '#6477D3',
@@ -40,14 +40,12 @@ function App() {
       >
         <Routes>
           <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
-          {!lineUserProfile ? <Route path="/reflect/task" element={<InitializeLiff />} /> : <></>}
           <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
           <Route path="/reflect/task/:taskId" element={<TaskReflect />} />
-          {!lineUserProfile ? <Route path="/reflect/hw" element={<InitializeLiff />} /> : <></>}
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
-      </ConfigProvider> */}
+      </ConfigProvider>
     </BrowserRouter>
   );
 }
