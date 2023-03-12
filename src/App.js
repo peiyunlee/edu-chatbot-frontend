@@ -69,14 +69,15 @@ function InitializeLiff(){
 
   const initializeLiff = () => {
     let liffId = '1660700459-XZKAApq7'
-    const path = location.pathname.split("/", 1)
-    if (path[0] == 'task')
+    const path = location.pathname.split("/", 2)
+    if (path[1] == 'task')
       liffId = '1660700459-XZKAApq7'
-    else if (path[0] == 'reflect-task')
+    else if (path[1] == 'reflect-task')
       liffId = '1660700459-Dgw33JG5'
-    else if (path[0] == 'reflect-hw')
+    else if (path[1] == 'reflect-hw')
       liffId = '1660700459-lWN44Az0'
     
+    console.log(location.pathname)
     console.log(path)
 
     liff.init({
