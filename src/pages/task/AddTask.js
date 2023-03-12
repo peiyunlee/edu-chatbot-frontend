@@ -41,7 +41,7 @@ function AddTask( {lineUserProfile}) {
     if(taskInfo['taskName'] == '' || taskInfo['plan'] == '' || taskInfo['handOverDate'] == '' || taskInfo['handOver'] == '')
       return
     const response = await createTask(lineUserProfile.userId, HWNo, taskInfo.taskName, taskInfo.plan, taskInfo.handOverDate, taskInfo.handOver)
-    navigate(`/task/hw/${HWNo}`)
+    navigate(`/hw/${HWNo}`)
   }
 
   return (
@@ -72,7 +72,7 @@ function AddTask( {lineUserProfile}) {
       </div>
       <div className="h-1 bg-gray-300 my-2"></div>
       <div className="grid grid-flow-col gap-3">
-        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}`); e.preventDefault(); }}>取消</a>
+        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}`); e.preventDefault(); }}>取消</a>
         <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickAdd(); e.preventDefault(); }}>完成</a>
       </div>
       </section>

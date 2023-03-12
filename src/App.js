@@ -23,15 +23,15 @@ function App() {
           },
         }}
       >
+        {!lineUserProfile ? <InitializeLiff />:<></>}
         <Routes>
-          {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          {!lineUserProfile ? <Route path="/task" element={<InitializeLiff />} /> : <></>}
+          <Route exact path="/" element={<Navigate replace to="/task" />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask lineUserProfile={lineUserProfile}/>} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
       </ConfigProvider>
-      <ConfigProvider
+      {/* <ConfigProvider
         theme={{
           token: {
             colorPrimary: '#6477D3',
@@ -47,8 +47,7 @@ function App() {
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
-        {!lineUserProfile ? <InitializeLiff /> : <></> }
-      </ConfigProvider>
+      </ConfigProvider> */}
     </BrowserRouter>
   );
 }
@@ -81,7 +80,7 @@ function InitializeLiff(){
           if (accessToken) {
             const response = await getLineUserProfile(accessToken)
             dispatch(updateLineUserProfile(response))
-            navigate(location)
+            console.log(location)
           }
         }
         else{

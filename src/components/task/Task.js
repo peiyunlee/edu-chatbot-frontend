@@ -52,7 +52,7 @@ function Task({ isSomeone, title, data }) {
             {
                 showInfo ?
                     <div className="grid grid-flow-col gap-3 mt-3">
-                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}/edit/${data._id}`); e.preventDefault(); }}>編輯</a>
+                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}/edit/${data._id}`); e.preventDefault(); }}>編輯</a>
                         {data.student_id == '' ?
                             <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickClaim(); e.preventDefault(); }}>認領</a> : 
                             <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickComplete(); e.preventDefault(); }}>完成</a>

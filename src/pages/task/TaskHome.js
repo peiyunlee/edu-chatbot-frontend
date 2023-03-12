@@ -61,7 +61,7 @@ function TaskHome({ lineUserProfile }) {
       <TaskHeader canClickNext={true} />
       <h1>line:{lineUserProfile ? lineUserProfile.userId : "none"}</h1>
       <section className="px-4 py-3 grid gap-4">
-        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}/create`); e.preventDefault(); }}>新增任務</a>
+        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}/create`); e.preventDefault(); }}>新增任務</a>
         {taskList.map((taskList) => <TaskList key={taskList.title} isSomeone={false} title={taskList.title} taskList={taskList.tasks} />)}
       </section>
     </div>

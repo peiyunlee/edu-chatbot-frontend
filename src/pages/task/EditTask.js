@@ -68,12 +68,12 @@ function EditTask() {
 
   const handleClickEdit = async () => {
     const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'])
-    navigate(`/task/hw/${HWNo}`)
+    navigate(`/hw/${HWNo}`)
   }
 
   const handleClickDelete = async () => {
     const resposne = await deleteTask(taskId)
-    navigate(`/task/hw/${HWNo}`);
+    navigate(`/hw/${HWNo}`);
   }
 
   return (
