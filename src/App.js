@@ -26,7 +26,7 @@ function App() {
       >
         {!userProfile ? <InitializeLiff />:<></>}
         <Routes>
-          <Route exact path="/" element={<Navigate replace to="/task/hw/1" />} />
+          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
           <Route path="/task/hw/:HWNo" element={<TaskHome userProfile={userProfile} />} />
           <Route path="/task/hw/:HWNo/create" element={<AddTask userProfile={userProfile}/>} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
