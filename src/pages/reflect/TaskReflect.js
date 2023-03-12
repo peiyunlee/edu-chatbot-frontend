@@ -16,8 +16,9 @@ function TaskReflect({userProfile}) {
   const [task, setTask] = useState()
 
   useEffect(() => {
-    setUpTask()
-  }, [taskId])
+    if (userProfile)
+      setUpTask()
+  }, [taskId, userProfile])
 
   const setUpTask = async () => {
     const response = await getTask(taskId)
@@ -54,10 +55,10 @@ function SelfReflect({task, userProfile}) {
   const [finishDate, setFinishDate] = useState(dayjs().format('MM/DD'))
 
   useEffect(() => {
-    if(task && task['is_finish']){
+    if(task && task['is_finish'] && userProfile){
       setUpReflectInfo()
     }
-  }, [task])
+  }, [task, userProfile])
 
   const setUpReflectInfo = async () => {
     const response = await getReflectTask(task['_id'],userProfile['student']['_id'])
@@ -156,13 +157,13 @@ function MemberReflect({task, userProfile}) {
   })
 
   useEffect(() => {
-    if(task){
+    if(task && userProfile){
       //取得已經填寫的
       setUpReflectInfo()
       //取得學生名字
       setTaskStudentInfo()
     }
-  }, [task])
+  }, [task, userProfile])
 
   const setUpReflectInfo = async () => {
     const response = await getReflectTask(task['_id'],userProfile['student']['_id'])

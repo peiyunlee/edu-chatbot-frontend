@@ -26,10 +26,10 @@ function App() {
       >
         {!userProfile ? <InitializeLiff />:<></>}
         <Routes>
-          <Route exact path="/task" element={<Navigate replace to="/task/hw/1" />} />
-          <Route path="/task/hw/:HWNo" element={<TaskHome userProfile={userProfile} />} />
-          <Route path="/task/hw/:HWNo/create" element={<AddTask userProfile={userProfile}/>} />
-          <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
+          {/* <Route exact path="/" element={<Navigate replace to="/task/hw/1" />} /> */}
+          <Route exact path="/task/hw/:HWNo" element={<TaskHome userProfile={userProfile} />} />
+          <Route exact path="/task/hw/:HWNo/create" element={<AddTask userProfile={userProfile}/>} />
+          <Route exact path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
       </ConfigProvider>
       <ConfigProvider
@@ -40,11 +40,13 @@ function App() {
         }}
       >
         <Routes>
-          <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
-          <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
-          <Route path="/reflect/task/:taskId" element={<TaskReflect userProfile={userProfile}/>} />
-          <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
-          <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
+          {/* <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
+          <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} /> */}
+          <Route exact path="/reflect-task/:taskId" element={<TaskReflect userProfile={userProfile}/>} />
+        </Routes>
+        <Routes>
+          {/* <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} /> */}
+          <Route exact path="/reflect-hw/:HWNo" element={<HWReflect />} />
         </Routes>
       </ConfigProvider>
     </BrowserRouter>
@@ -66,9 +68,19 @@ function InitializeLiff(){
   }, [lineAccessToken])
 
   const initializeLiff = () => {
-    console.log("liff init")
+    let liffId = '1660700459-XZKAApq7'
+    const path = location.pathname.split("/", 1)
+    if (path[0] == 'task')
+      liffId = '1660700459-XZKAApq7'
+    else if (path[0] == 'reflect-task')
+      liffId = '1660700459-Dgw33JG5'
+    else if (path[0] == 'reflect-hw')
+      liffId = '1660700459-lWN44Az0'
+    
+    console.log(path)
+
     liff.init({
-      liffId: '1660700459-XZKAApq7'
+      liffId: liffId
     })
       .then(async () => {
         console.log("初始化成功")
