@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 
 function Task({ isSomeone, title, data }) {
-    const lineUserProfile = useSelector((state) => state.lineUserProfile);
+    const userProfile = useSelector((state) => state.userProfile);
     const navigate = useNavigate();
     const [showInfo, setShowInfo] = useState(false)
     const { HWNo: HWNo } = useParams()
@@ -16,10 +16,11 @@ function Task({ isSomeone, title, data }) {
     }
 
     const handleClickComplete = () => {
+        navigate(`/reflect/task/${data['_id']}`)
     }
 
     const handleClickClaim = () => {
-        const response = claimTask(lineUserProfile.userId, data._id)
+        const response = claimTask(userProfile.userId, data._id)
         navigate(0)
     }
 
@@ -30,7 +31,7 @@ function Task({ isSomeone, title, data }) {
                     <span className="flex-1 mr-4 font-bold">{data.task_name}</span>
                     <span className="w-14 text-center mr-4">{data.hand_over_date}</span>
                     <div className="w-14 text-center">
-                        {data.isFinish ? <CheckCircleFilled style={{ fontSize: "16px" }} /> : <></>}
+                        {data.is_finish ? <CheckCircleFilled style={{ fontSize: "16px" }} /> : <></>}
                     </div>
                 </div>
                 {
@@ -50,12 +51,12 @@ function Task({ isSomeone, title, data }) {
 
             </a>
             {
-                showInfo ?
+                showInfo && !data.is_finish ?
                     <div className="grid grid-flow-col gap-3 mt-3">
-                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}/edit/${data._id}`); e.preventDefault(); }}>編輯</a>
+                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}/edit/${data._id}`); e.preventDefault(); }}>編輯</a>
                         {data.student_id == '' ?
                             <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickClaim(); e.preventDefault(); }}>認領</a> : 
-                            <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickComplete(); e.preventDefault(); }}>完成</a>
+                            data.student_id == userProfile['student']['_id'] ? <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickComplete(); e.preventDefault(); }}>完成</a>:<></>
                         }
                     </div> :
                     <></>

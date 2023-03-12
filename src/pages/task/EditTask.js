@@ -68,12 +68,12 @@ function EditTask() {
 
   const handleClickEdit = async () => {
     const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'])
-    navigate(`/hw/${HWNo}`)
+    navigate(`/task/hw/${HWNo}`)
   }
 
   const handleClickDelete = async () => {
     const resposne = await deleteTask(taskId)
-    navigate(`/hw/${HWNo}`);
+    navigate(`/task/hw/${HWNo}`);
   }
 
   return (
@@ -82,7 +82,7 @@ function EditTask() {
       <section className="px-4 py-5 grid gap-4">
       <div className='grid gap-5'>
         <div className='flex'>
-          <span className='font-bold mr-4'>任務名稱</span>
+          <span className='font-bold mr-4'>工作名稱</span>
           <Input className='flex-1' placeholder={taskInfo.taskName} onChange={(e)=>handleInputChange(e,"taskName")}/>
         </div>
         <div className='grid gap-2'>

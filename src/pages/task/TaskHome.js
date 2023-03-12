@@ -8,21 +8,21 @@ import { getGroupMembersByLUID } from '../../api/studentAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskList } from '../../store/action';
 
-function TaskHome({ lineUserProfile }) {
+function TaskHome({ userProfile }) {
   const navigate = useNavigate();
   const { HWNo } = useParams();
   const taskList = useSelector((state) => state.taskList);
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (lineUserProfile) {
+    if (userProfile) {
       updateTaskLists()
     }
-  }, [lineUserProfile])
+  }, [userProfile])
 
   const updateTaskLists = async () => {
-    const res_taskList = await getTaskList(lineUserProfile.userId, HWNo)
-    const res_members = await getGroupMembersByLUID(lineUserProfile.userId)
+    const res_taskList = await getTaskList(userProfile.userId, HWNo)
+    const res_members = await getGroupMembersByLUID(userProfile.userId)
 
     let temp_taskLists = [{
       student_id: null,
@@ -36,7 +36,7 @@ function TaskHome({ lineUserProfile }) {
       temp_taskLists.push({
         student_id: student._id,
         tasks: [],
-        title: `${student.name} 的任務`
+        title: `${student.name} 的工作`
       })
     })
 
@@ -59,9 +59,9 @@ function TaskHome({ lineUserProfile }) {
   return (
     <div>
       <TaskHeader canClickNext={true} />
-      <h1>line:{lineUserProfile ? lineUserProfile.userId : "none"}</h1>
+      <h1>line:{userProfile ? userProfile.userId : "none"}</h1>
       <section className="px-4 py-3 grid gap-4">
-        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}/create`); e.preventDefault(); }}>新增任務</a>
+        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}/create`); e.preventDefault(); }}>新增工作</a>
         {taskList.map((taskList) => <TaskList key={taskList.title} isSomeone={false} title={taskList.title} taskList={taskList.tasks} />)}
       </section>
     </div>

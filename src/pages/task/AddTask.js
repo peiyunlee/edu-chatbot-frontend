@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 const { TextArea } = Input;
 const dateFormat = 'MM/DD';
 
-function AddTask( {lineUserProfile}) {
+function AddTask( {userProfile}) {
   const navigate = useNavigate();
   const { HWNo: HWNo } = useParams();
   const [taskInfo, setTaskInfo] = useState({
@@ -40,8 +40,8 @@ function AddTask( {lineUserProfile}) {
     setClickComplete(clickComplete + 1)
     if(taskInfo['taskName'] == '' || taskInfo['plan'] == '' || taskInfo['handOverDate'] == '' || taskInfo['handOver'] == '')
       return
-    const response = await createTask(lineUserProfile.userId, HWNo, taskInfo.taskName, taskInfo.plan, taskInfo.handOverDate, taskInfo.handOver)
-    navigate(`/hw/${HWNo}`)
+    const response = await createTask(userProfile.userId, HWNo, taskInfo.taskName, taskInfo.plan, taskInfo.handOverDate, taskInfo.handOver)
+    navigate(`/task/hw/${HWNo}`)
   }
 
   return (
@@ -50,8 +50,8 @@ function AddTask( {lineUserProfile}) {
       <section className="px-4 py-5 grid gap-4">
       <div className='grid gap-5'>
         <div className='flex'>
-          <span className='font-bold mr-4'>任務名稱</span>
-          {clickComplete && taskInfo['taskName'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入任務名稱</span> :<></>}
+          <span className='font-bold mr-4'>工作名稱</span>
+          {clickComplete && taskInfo['taskName'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入工作名稱</span> :<></>}
           <Input className='flex-1' placeholder="專案介紹" onChange={(e)=>handleInputChange(e,'taskName')} />
         </div>
         <div className='grid gap-2'>
@@ -72,7 +72,7 @@ function AddTask( {lineUserProfile}) {
       </div>
       <div className="h-1 bg-gray-300 my-2"></div>
       <div className="grid grid-flow-col gap-3">
-        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/hw/${HWNo}`); e.preventDefault(); }}>取消</a>
+        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}`); e.preventDefault(); }}>取消</a>
         <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickAdd(); e.preventDefault(); }}>完成</a>
       </div>
       </section>

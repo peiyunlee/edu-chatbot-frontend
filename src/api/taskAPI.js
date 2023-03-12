@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = "http://localhost:4000"
-const baseURL = "https://edu-chatbot-server.onrender.com"
+const baseURL = "http://localhost:4000"
+// const baseURL = "https://edu-chatbot-server.onrender.com"
 
 export const getTaskList = async (lineUserId, hwNoNow) => {
     try {
@@ -39,14 +39,14 @@ export const getTask = async (taskId) => {
     }
 }
 
-export const createTask = async (lineUserId, hw_no, task_name, plan, hand_over_date, hand_over) => {
+export const createTask = async (lineUserId, HWNo, taskName, plan, handOverDate, handOver) => {
     try {
         const task = {
-            hw_no: hw_no,
-            task_name: task_name,
+            hw_no: HWNo,
+            task_name: taskName,
             plan: plan,
-            hand_over_date: hand_over_date,
-            hand_over: hand_over
+            hand_over_date: handOverDate,
+            hand_over: handOver
         }
         const url = `${baseURL}/task/create/LUID/${lineUserId}`
         const response = await axios.post(url, task, {
@@ -60,9 +60,9 @@ export const createTask = async (lineUserId, hw_no, task_name, plan, hand_over_d
     }
 }
 
-export const claimTask = async (lineUserId, task_id) => {
+export const claimTask = async (lineUserId, taskId) => {
     try {
-        const url = `${baseURL}/task/claim/LUID/${lineUserId}/id/${task_id}`
+        const url = `${baseURL}/task/claim/LUID/${lineUserId}/id/${taskId}`
         const response = await axios.post(url, {
             headers: {
                 'Accept': 'application/json'
@@ -74,13 +74,27 @@ export const claimTask = async (lineUserId, task_id) => {
     }
 }
 
-export const updateTask = async (taskId, task_name, plan, hand_over_date, hand_over) => {
+export const completeTask = async (taskId, finishDate) => {
+    try {
+        const url = `${baseURL}/task/complete/id/${taskId}/date/${finishDate}`
+        const response = await axios.post(url, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+    } catch (err) {
+        console.log(err.response);
+        return null
+    }
+}
+
+export const updateTask = async (taskId, taskName, plan, handOverDate, handOver) => {
     try {
         const task = {
-            task_name: task_name,
+            task_name: taskName,
             plan: plan,
-            hand_over_date: hand_over_date,
-            hand_over: hand_over
+            hand_over_date: handOverDate,
+            hand_over: handOver
         }
         const url = `${baseURL}/task/id/${taskId}`
         const response = await axios.patch(url, task, {
@@ -95,9 +109,9 @@ export const updateTask = async (taskId, task_name, plan, hand_over_date, hand_o
 }
 
 
-export const deleteTask = async (task_id) => {
+export const deleteTask = async (taskId) => {
     try {
-        const url = `${baseURL}/task/id/${task_id}`
+        const url = `${baseURL}/task/id/${taskId}`
         const response = await axios.delete(url, {
             headers: {
                 'Accept': 'application/json'

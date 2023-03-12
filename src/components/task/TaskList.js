@@ -37,7 +37,7 @@ function TaskList({ isSomeone, title, taskList }) {
                 showList && taskList.length > 0 ?
                     <div>
                         <div className="text-gray-400 font-bold flex px-2 mb-2">
-                            <span className="flex-1 mr-4">任務</span>
+                            <span className="flex-1 mr-4">工作</span>
                             <span className="w-14 text-center mr-4">繳交日</span>
                             <span className="w-14 text-center">已完成</span>
                         </div>

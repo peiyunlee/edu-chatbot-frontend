@@ -10,10 +10,11 @@ import AddTask from "./pages/task/AddTask";
 import EditTask from "./pages/task/EditTask";
 import TaskReflect from "./pages/reflect/TaskReflect"
 import HWReflect from "./pages/reflect/HWReflect"
-import { updateLineUserProfile } from "./store/action";
+import { updateUserProfile } from "./store/action";
+import { getStudentByLUID } from "./api/studentAPI";
 
 function App() {
-  const lineUserProfile = useSelector((state) => state.lineUserProfile);
+  const userProfile = useSelector((state) => state.userProfile);
   return (
     <BrowserRouter>
       <ConfigProvider
@@ -23,11 +24,11 @@ function App() {
           },
         }}
       >
-        {!lineUserProfile ? <InitializeLiff />:<></>}
+        {!userProfile ? <InitializeLiff />:<></>}
         <Routes>
-          <Route exact path="/" element={<Navigate replace to="/task" />} />
-          <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
-          <Route path="/task/hw/:HWNo/create" element={<AddTask lineUserProfile={lineUserProfile}/>} />
+          <Route exact path="/" element={<Navigate replace to="/task/hw/1" />} />
+          <Route path="/task/hw/:HWNo" element={<TaskHome userProfile={userProfile} />} />
+          <Route path="/task/hw/:HWNo/create" element={<AddTask userProfile={userProfile}/>} />
           <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
       </ConfigProvider>
@@ -41,7 +42,7 @@ function App() {
         <Routes>
           <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
           <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} />
-          <Route path="/reflect/task/:taskId" element={<TaskReflect />} />
+          <Route path="/reflect/task/:taskId" element={<TaskReflect userProfile={userProfile}/>} />
           <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} />
           <Route path="/reflect/hw/:HWNo" element={<HWReflect />} />
         </Routes>
@@ -77,8 +78,10 @@ function InitializeLiff(){
           setLineAccessToken(accessToken)
           if (accessToken) {
             const response = await getLineUserProfile(accessToken)
-            dispatch(updateLineUserProfile(response))
-            console.log(location)
+            const student = await getStudentByLUID(response.userId)
+            let userProfile = response
+            userProfile['student'] = student
+            dispatch(updateUserProfile(userProfile))
           }
         }
         else{

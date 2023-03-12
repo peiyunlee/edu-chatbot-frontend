@@ -11,10 +11,10 @@ function TaskHeader({ canClickNext=false }) {
 
   const handleClickNext = () => {
     if (HWNo >= 3) {
-      navigate(`/hw/1`)
+      navigate(`/task/hw/1`)
     }
     else {
-      navigate(`/hw/${parseInt(HWNo) + 1}`)
+      navigate(`/task/hw/${parseInt(HWNo) + 1}`)
     }
   }
 

@@ -1,20 +1,38 @@
 // import { useNavigate } from 'react-router-dom';
 import { Input, Slider } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createReflectTask, getReflectTask } from '../../api/reflectTaskAPI';
+import { completeTask, getTask } from '../../api/taskAPI';
+import { getStudentByStudentId } from '../../api/studentAPI';
 import ReflectHeader from "../../components/reflect/ReflectHeader";
+import dayjs from 'dayjs';
 
 const { TextArea } = Input;
 
-function TaskReflect() {
+function TaskReflect({userProfile}) {
   const [isSelf, setIsSelf] = useState(false)
+  const { taskId: taskId } = useParams()
+  const [task, setTask] = useState()
+
+  useEffect(() => {
+    setUpTask()
+  }, [taskId])
+
+  const setUpTask = async () => {
+    const response = await getTask(taskId)
+    setTask(response)
+    setIsSelf(userProfile['student']['_id'] == response['student_id'])
+  }
+  
 
   return (
     <div>
-      <ReflectHeader title={"完成任務反思工具"} />
+      <ReflectHeader title={"工作完成：反思工具"} />
       {
         isSelf ?
-          <SelfReflect /> :
-          <MemberReflect />
+          <SelfReflect task={task} userProfile={userProfile}/> :
+          <MemberReflect task={task} userProfile={userProfile}/>
       }
     </div>
   );
@@ -23,52 +41,85 @@ function TaskReflect() {
 export default TaskReflect;
 
 
-function SelfReflect() {
-  // const navigate = useNavigate();
+function SelfReflect({task, userProfile}) {
+  const navigate = useNavigate();
   const [isComplete, setIsComplete] = useState(false)
   const [sliderValue, setSliderValue] = useState(0)
+  const [clickComplete, setClickComplete] = useState(0)
+  const [reflectInfo, setReflectInfo] = useState({
+    reflect1:'',
+    reflect2: ''
+  })
+  
+  const [finishDate, setFinishDate] = useState(dayjs().format('MM/DD'))
 
-  const handleClickCheck = () => {
+  useEffect(() => {
+    if(task && task['is_finish']){
+      setUpReflectInfo()
+    }
+  }, [task])
+
+  const setUpReflectInfo = async () => {
+    const response = await getReflectTask(task['_id'],userProfile['student']['_id'])
+    setReflectInfo(response)
+    setSliderValue(response['score'])
+    setFinishDate(task['finish_date'])
     setIsComplete(true)
+  }
+
+  const handleClickCheck = async () => {
+    setClickComplete(clickComplete + 1)
+    if(reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || sliderValue == 0)
+      return    
+    const res_task = await completeTask(task['_id'], finishDate)
+    const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, true)
+    navigate(0)
   }
 
   const handleSliderChange = (value) => {
     setSliderValue(value)
   };
 
+  const handleInputChange = (e, type) => {
+    const { value } = e.target;
+    let temp = reflectInfo
+    temp[type] = value
+    setReflectInfo(temp)
+  };
+
   return (
     <section className="p-4 grid gap-4">
       <div className='grid gap-5'>
         <div className='flex'>
-          <span className='w-28 font-bold mr-2'>任務名稱</span>
-          <span className='font-bold'>專案介紹</span>
+          <span className='w-28 font-bold mr-2'>工作名稱</span>
+          <span className='font-bold'>{task?task['task_name']:''}</span>
         </div>
         <div className='flex'>
           <span className='w-28 font-bold mr-2'>預計繳交日期</span>
-          <span className='font-bold'>04/02</span>
+          <span className='font-bold'>{task?task['hand_over_date']:''}</span>
         </div>
         <div className='flex'>
           <span className='w-28 font-bold mr-2'>完成日期</span>
-          <span className='font-bold'>04/02</span>
+          <span className='font-bold'>{task?finishDate:''}</span>
         </div>
         <div className='grid gap-2'>
-          <span className='font-bold mr-4'>遇到什麼困難？</span>
+          <span className='font-bold mr-4'>有遇到什麼困難？</span>
           {!isComplete ?
             <>
-              <span className='font-bold text-gray-400 mr-4'>怎麼檢討遇到什麼困難？</span>
-              <TextArea className='flex-1' rows={3} />
+              {clickComplete && reflectInfo['reflect1'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入你遇到了哪些困難？</span> :<></>}
+              <TextArea className='flex-1' rows={3} placeholder="我在進行...事情的時候，遇到了...的困難，我覺得下次可以用...的方式來改進" onChange={(e)=>handleInputChange(e,'reflect1')}/>
             </> :
-            <span>怎麼檢討遇到什麼困難</span>
+            <span>{reflectInfo['reflect1']}</span>
           }
         </div>
         <div className='grid gap-2'>
           <span className='font-bold mr-4'>有哪些可以改進的地方？</span>
           {!isComplete ?
             <>
-              <span className='font-bold text-gray-400 mr-4'>怎麼檢討有哪些可以改進的地方</span>
-              <TextArea className='flex-1' rows={3} />
+              {clickComplete && reflectInfo['reflect2'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入有哪些可以改進的地方</span> :<></>}
+              <TextArea className='flex-1' rows={3} placeholder="評估了工作成果，我覺得在...的部分，下次可以用...方法做得更好" onChange={(e)=>handleInputChange(e,'reflect2')}/>
             </> :
-            <span>有哪些可以改進的地方</span>
+            <span>{reflectInfo['reflect2']}</span>
           }
         </div>
         <div className='grid gap-2'>
@@ -76,6 +127,7 @@ function SelfReflect() {
             <span className='font-bold'>你對自己執行成果的滿意分數？</span>
             <span className='font-bold text-purple-400'>{sliderValue}分</span>
           </div>
+          {clickComplete && sliderValue == 0 ? <span className='font-bold text-red-400 mr-4'>請輸入分數</span> :<></>}
           {!isComplete ?
             <Slider disabled={false} onChange={handleSliderChange} /> :
             <></>
@@ -92,56 +144,96 @@ function SelfReflect() {
 }
 
 
-function MemberReflect() {
-  // const navigate = useNavigate();
+function MemberReflect({task, userProfile}) {
+  const navigate = useNavigate();
   const [isComplete, setIsComplete] = useState(false)
   const [sliderValue, setSliderValue] = useState(0)
+  const [clickComplete, setClickComplete] = useState(0)
+  const [studentName, setStudentName] = useState('')
+  const [reflectInfo, setReflectInfo] = useState({
+    reflect1:'',
+    reflect2: ''
+  })
 
-  const handleClickCheck = () => {
-    setIsComplete(true)
+  useEffect(() => {
+    if(task){
+      //取得已經填寫的
+      setUpReflectInfo()
+      //取得學生名字
+      setTaskStudentInfo()
+    }
+  }, [task])
+
+  const setUpReflectInfo = async () => {
+    const response = await getReflectTask(task['_id'],userProfile['student']['_id'])
+    if (response){
+      setReflectInfo(response)
+      setSliderValue(response['score'])
+      setIsComplete(true)
+    }
+  }
+
+  const setTaskStudentInfo = async () => {
+    const response = await getStudentByStudentId(task['student_id'])
+    setStudentName(response['name'])
+  }
+
+  const handleClickCheck = async () => {
+    setClickComplete(clickComplete + 1)
+    if(reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || sliderValue == 0)
+      return    
+    const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, false)
+    // navigate(0)
   }
 
   const handleSliderChange = (value) => {
     setSliderValue(value)
   };
 
+  const handleInputChange = (e, type) => {
+    const { value } = e.target;
+    let temp = reflectInfo
+    temp[type] = value
+    setReflectInfo(temp)
+  };
+
   return (
     <section className="p-4 grid gap-4">
       <div className='grid gap-5'>
         <div className='flex'>
-          <span className='w-28 font-bold mr-2'>任務名稱</span>
-          <span className='font-bold'>專案介紹</span>
+          <span className='w-28 font-bold mr-2'>工作名稱</span>
+          <span className='font-bold'>{task?task['task_name']:''}</span>
         </div>
         <div className='flex'>
           <span className='w-28 font-bold mr-2'>負責人</span>
-          <span className='font-bold'>ＸＸＸ</span>
+          <span className='font-bold'>{studentName}</span>
         </div>
         <div className='flex'>
           <span className='w-28 font-bold mr-2'>預計繳交日期</span>
-          <span className='font-bold'>04/02</span>
+          <span className='font-bold'>{task?task['hand_over_date']:''}</span>
         </div>
         <div className='flex'>
           <span className='w-28 font-bold mr-2'>完成日期</span>
-          <span className='font-bold'>04/02</span>
+          <span className='font-bold'>{task?task['finish_date']:''}</span>
         </div>
         <div className='grid gap-2'>
-          <span className='font-bold mr-4'>有哪些地方你覺得可以修改？</span>
+          <span className='font-bold mr-4'>你覺得成果有哪些地方可以修改？</span>
           {!isComplete ?
             <>
-              <span className='font-bold text-gray-400 mr-4'>怎麼檢討有哪些地方你覺得可以修改？</span>
-              <TextArea className='flex-1' rows={3} />
+              {clickComplete && reflectInfo['reflect1'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入你覺得成果有哪些地方可以修改</span> :<></>}
+              <TextArea className='flex-1' rows={3} placeholder="我覺得在...的部分，可以用...的方式做得可好" onChange={(e)=>handleInputChange(e,'reflect1')}/>
             </> :
-            <span>有哪些地方你覺得可以修改</span>
+            <span>{reflectInfo['reflect1']}</span>
           }
         </div>
         <div className='grid gap-2'>
-          <span className='font-bold mr-4'>你有什麼建議呢？</span>
+          <span className='font-bold mr-4'>你有什麼其他建議呢？</span>
           {!isComplete ?
             <>
-              <span className='font-bold text-gray-400 mr-4'>怎麼檢討你有什麼建議呢？</span>
-              <TextArea className='flex-1' rows={3} />
+              {clickComplete && reflectInfo['reflect2'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入你的建議</span> :<></>}
+              <TextArea className='flex-1' rows={3}  placeholder="我覺得..." onChange={(e)=>handleInputChange(e,'reflect2')} />
             </> :
-            <span>你有什麼建議</span>
+            <span>{reflectInfo['reflect2']}</span>
           }
         </div>
         <div className='grid gap-2'>
@@ -149,6 +241,7 @@ function MemberReflect() {
             <span className='font-bold'>你對該成果的滿意程度？</span>
             <span className='font-bold text-purple-400'>{sliderValue}分</span>
           </div>
+          {clickComplete && sliderValue == 0 ? <span className='font-bold text-red-400 mr-4'>請輸入分數</span> :<></>}
           {!isComplete ?
             <Slider disabled={false} onChange={handleSliderChange} /> :
             <></>

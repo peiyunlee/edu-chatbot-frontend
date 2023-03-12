@@ -1,9 +1,9 @@
-export const UPDATE_LINE_USER_PROFILE = "UPDATE_LINE_PROFILE";
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
 
 // action creator
-export function updateLineUserProfile(profile) {
+export function updateUserProfile(profile) {
   return {
-    type: UPDATE_LINE_USER_PROFILE,
+    type: UPDATE_USER_PROFILE,
     payload: { profile }
   };
 }
