@@ -46,7 +46,7 @@ function App() {
         </Routes>
         <Routes>
           {/* <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} /> */}
-          <Route exact path="/reflect-hw/:HWNo" element={<HWReflect />} />
+          <Route exact path="/reflect-hw/:HWNo" element={<HWReflect userProfile={userProfile}/>} />
         </Routes>
       </ConfigProvider>
     </BrowserRouter>
