@@ -16,11 +16,11 @@ function TaskHome({ lineUserProfile }) {
 
   useEffect(() => {
     if (lineUserProfile) {
-      setUpTaskLists()
+      updateTaskLists()
     }
-  }, [])
+  }, [lineUserProfile])
 
-  const setUpTaskLists = async () => {
+  const updateTaskLists = async () => {
     const res_taskList = await getTaskList(lineUserProfile.userId, HWNo)
     const res_members = await getGroupMembersByLUID(lineUserProfile.userId)
 
