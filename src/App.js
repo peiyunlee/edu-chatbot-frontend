@@ -25,10 +25,10 @@ function App() {
       >
         {!lineUserProfile ? <InitializeLiff />:<></>}
         <Routes>
-          {/* <Route exact path="/" element={<Navigate replace to="/task" />} /> */}
-          <Route path="/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
-          <Route path="/hw/:HWNo/create" element={<AddTask lineUserProfile={lineUserProfile}/>} />
-          <Route path="/hw/:HWNo/edit/:taskId" element={<EditTask />} />
+          <Route exact path="/" element={<Navigate replace to="/task" />} />
+          <Route path="/task/hw/:HWNo" element={<TaskHome lineUserProfile={lineUserProfile} />} />
+          <Route path="/task/hw/:HWNo/create" element={<AddTask lineUserProfile={lineUserProfile}/>} />
+          <Route path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
         </Routes>
       </ConfigProvider>
       {/* <ConfigProvider
