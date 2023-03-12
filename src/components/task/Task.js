@@ -16,7 +16,7 @@ function Task({ isSomeone, title, data }) {
     }
 
     const handleClickComplete = () => {
-        navigate(`/reflect/task/${data['_id']}`)
+        navigate(`/reflect-task/${data['_id']}`)
     }
 
     const handleClickClaim = () => {
