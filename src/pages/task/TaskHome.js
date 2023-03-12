@@ -18,7 +18,7 @@ function TaskHome({ lineUserProfile }) {
     if (lineUserProfile) {
       setUpTaskLists()
     }
-  }, [])
+  }, [lineUserProfile])
 
   const setUpTaskLists = async () => {
     const res_taskList = await getTaskList(lineUserProfile.userId, HWNo)
