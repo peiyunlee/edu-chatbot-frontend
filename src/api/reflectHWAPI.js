@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const baseURL = "http://localhost:4000"
-const baseURL = "https://edu-chatbot-server.onrender.com"
+const baseURL = process.env.REACT_APP_API_BASE_URL
 
 export const getHomework = async (HWNo) => {
     try {
