@@ -42,7 +42,7 @@ function HWReflect({ userProfile }) {
             const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)
             setIsReflectFormComplete(true)
             setShowHWCheck(true)
-            navigate(0)
+            // navigate(0)
         }
         else if (isHWCheckComplete && isReflectFormComplete) {
             setShowHWCheck(!showHWCheck)
@@ -137,7 +137,7 @@ function HWReflect({ userProfile }) {
 export default HWReflect;
 
 
-function ReflectForm({ isComplete, homework, HWNo, finishDate, reflectInfo, setReflectInfo, clickComplete, groupScore, score, setGroupScore, setScore }) {
+function ReflectForm({ isComplete, homework, HWNo, reflectInfo, setReflectInfo, clickComplete, groupScore, score, setGroupScore, setScore }) {
 
     const handleInputChange = (e, type) => {
         const { value } = e.target;
@@ -161,7 +161,7 @@ function ReflectForm({ isComplete, homework, HWNo, finishDate, reflectInfo, setR
                     }
                 </div>
                 <div className='grid gap-2'>
-                    <span className='font-bold mr-4'>團隊進行遇到的挑戰？</span>
+                    <span className='font-bold mr-4'>團隊進行遇到的挑戰？應該如何克服？</span>
                     {!isComplete ?
                         <>
                             {clickComplete && reflectInfo['reflect1'] == '' ? <span className='font-bold text-red-400 mr-4'>請輸入團隊進行中遇到的挑戰？</span> : <></>}
@@ -203,7 +203,7 @@ function ReflectForm({ isComplete, homework, HWNo, finishDate, reflectInfo, setR
                 </div>
                 <div className='grid gap-2'>
                     <div className='flex justify-between'>
-                        <span className='font-bold'>你覺得專題的完成度？</span>
+                        <span className='font-bold'>你覺得作業的完成度？</span>
                         <span className='font-bold text-purple-400'>{score}分</span>
                     </div>
                     {clickComplete && score == 0 ? <span className='font-bold text-red-400 mr-4'>請輸入分數</span> : <></>}
@@ -223,6 +223,7 @@ function HWCheck({ isComplete, homework, HWNo, checkLists, setCheckLists }) {
         let temp = checkLists
         temp[no - 1][idx] = !temp[no - 1][idx]
         setCheckLists(temp)
+        console.log(temp)
     };
 
     return (
