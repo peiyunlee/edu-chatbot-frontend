@@ -74,7 +74,7 @@ function SelfReflect({task, userProfile}) {
       return    
     const res_task = await completeTask(task['_id'], finishDate)
     const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, true)
-    navigate(0)
+    navigate(`/reflect-task/${task['_id']}`)
   }
 
   const handleSliderChange = (value) => {
