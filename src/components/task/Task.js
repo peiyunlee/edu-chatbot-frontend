@@ -19,8 +19,8 @@ function Task({ isSomeone, title, data }) {
         navigate(`/reflect-task/${data['_id']}`)
     }
 
-    const handleClickClaim = () => {
-        const response = claimTask(userProfile.userId, data._id)
+    const handleClickClaim = async () => {
+        const response = await claimTask(userProfile.userId, data._id)
         navigate(0)
         navigate(`/task/hw/${HWNo}`)
     }
