@@ -85,12 +85,15 @@ function HWReflect({ userProfile }) {
         });
         lists.push(temp)
 
-        if (HWNo == 1) {
+        if (!response['rule2_title'] == '') {
             temp = []
             response['rule2_contents'].forEach(item => {
                 temp.push(false)
             });
             lists.push(temp)
+        }
+
+        if (!response['rule3_title'] == '') {
             temp = []
             response['rule3_contents'].forEach(item => {
                 temp.push(false)
@@ -233,53 +236,56 @@ function HWCheck({ isComplete, homework, HWNo, checkLists, setCheckLists }) {
                 <span>{homework ? homework['description'] : ''}</span>
                 <span className='font-bold text-md'>請勾選完成的項目!</span>
                 <div className="h-1 bg-gray-300"></div>
-                <div className='grid gap-2'>
-                    <span className='font-bold'>{homework ? homework['rule1_title'] : <></>}</span>
-                    {
-                        homework ? homework['rule1_contents'].map((item, idx) =>
-                            !isComplete ?
-                                <Checkbox key={`checkbox-${item}`} className='ml-2' onChange={(e) => handleClickCheck(e, 1, idx)}>{item}</Checkbox> :
-                                <div key={`done-${item}`}>
-                                    { checkLists[0][idx] ?
-                                        <CheckCircleFilled className='text-purple-400 text-lg' />:
-                                        <CloseCircleFilled className='text-lg' />
-                                    }
-                                    <span className='ml-4'>{item}</span>
-                                </div>
-                        ) : <></>
-                    }
-                </div>
-                {HWNo == 1 ?
-                    <>< div className='grid gap-2'>
-                        <span className='font-bold'>{homework ? homework['rule2_title'] : <></>}</span>
+                {homework ?
+                    <div className='grid gap-2'>
+                        <span className='font-bold'>{homework['rule1_title']}</span>
                         {
-                            homework ? homework['rule2_contents'].map((item, idx) =>
+                            homework['rule1_contents'].map((item, idx) =>
+                                !isComplete ?
+                                    <Checkbox key={`checkbox-${item}`} className='ml-2' onChange={(e) => handleClickCheck(e, 1, idx)}>{item}</Checkbox> :
+                                    <div key={`done-${item}`}>
+                                        {checkLists[0][idx] ?
+                                            <CheckCircleFilled className='text-purple-400 text-lg' /> :
+                                            <CloseCircleFilled className='text-lg' />
+                                        }
+                                        <span className='ml-4'>{item}</span>
+                                    </div>
+                            )
+                        }
+                    </div> : <></>
+                }
+                {homework && !homework['rule2_title'] == '' ?
+                    < div className='grid gap-2'>
+                        <span className='font-bold'>{homework['rule2_title']}</span>
+                        {
+                            homework['rule2_contents'].map((item, idx) =>
                                 !isComplete ?
                                     <Checkbox key={`checkbox-${item}`} className='ml-2' onChange={(e) => handleClickCheck(e, 2, idx)}>{item}</Checkbox> :
                                     <div key={`done-${item}`}>
-                                        { checkLists[1][idx] ?
-                                        <CheckCircleFilled className='text-purple-400 text-lg' />:
-                                        <CloseCircleFilled className='text-lg' />}
+                                        {checkLists[1][idx] ?
+                                            <CheckCircleFilled className='text-purple-400 text-lg' /> :
+                                            <CloseCircleFilled className='text-lg' />}
                                         <span className='ml-4'>{item}</span>
                                     </div>
-                            ) : <></>
+                            )
                         }
-                    </div>
-                        <div className='grid gap-2'>
-                            <span className='font-bold'>{homework ? homework['rule3_title'] : <></>}</span>
-                            {
-                                homework ? homework['rule3_contents'].map((item, idx) =>
-                                    !isComplete ?
-                                        <Checkbox key={`checkbox-${item}`} className='ml-2' onChange={(e) => handleClickCheck(e, 3, idx)}>{item}</Checkbox> :
-                                        <div key={`done-${item}`}>
-                                            { checkLists[2][idx] ?
-                                            <CheckCircleFilled className='text-purple-400 text-lg' />:
+                    </div> : <></>}
+                {homework && !homework['rule3_title'] == '' ?
+                    <div className='grid gap-2'>
+                        <span className='font-bold'>{homework['rule3_title']}</span>
+                        {
+                            homework['rule3_contents'].map((item, idx) =>
+                                !isComplete ?
+                                    <Checkbox key={`checkbox-${item}`} className='ml-2' onChange={(e) => handleClickCheck(e, 3, idx)}>{item}</Checkbox> :
+                                    <div key={`done-${item}`}>
+                                        {checkLists[2][idx] ?
+                                            <CheckCircleFilled className='text-purple-400 text-lg' /> :
                                             <CloseCircleFilled className='text-lg' />}
-                                            <span className='ml-4'>{item}</span>
-                                        </div>
-                                ) : <></>
-                            }
-                        </div></> : <></>
+                                        <span className='ml-4'>{item}</span>
+                                    </div>
+                            )
+                        }
+                    </div> : <></>
                 }
             </div>
         </section >

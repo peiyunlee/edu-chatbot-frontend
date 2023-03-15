@@ -9,15 +9,6 @@ function TaskHeader({ canClickNext=false }) {
   const { HWNo: HWNo } = useParams();
   const [ homework , setHomework ] = useState(null)
 
-  const handleClickNext = () => {
-    if (HWNo >= 3) {
-      navigate(`/task/hw/1`)
-    }
-    else {
-      navigate(`/task/hw/${parseInt(HWNo) + 1}`)
-    }
-  }
-
   const setUpHomework = async () => {
     const response = await getHW(HWNo)
     setHomework(response)

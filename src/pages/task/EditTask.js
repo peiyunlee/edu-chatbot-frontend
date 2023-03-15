@@ -67,7 +67,7 @@ function EditTask({userProfile}) {
   };
 
   const handleClickEdit = async () => {
-    const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'])
+    const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'], userProfile['user_id'])
     navigate(`/task/hw/${HWNo}`)
   }
 

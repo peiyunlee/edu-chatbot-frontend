@@ -10,6 +10,7 @@ import AddTask from "./pages/task/AddTask";
 import EditTask from "./pages/task/EditTask";
 import TaskReflect from "./pages/reflect/TaskReflect"
 import HWReflect from "./pages/reflect/HWReflect"
+import FindNotFound from "./pages/FindNotFound"
 import { updateUserProfile } from "./store/action";
 import { getStudentByLUID } from "./api/studentAPI";
 
@@ -43,6 +44,7 @@ function App() {
           {/* <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
           <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} /> */}
           <Route exact path="/reflect-task/:taskId" element={<TaskReflect userProfile={userProfile}/>} />
+          <Route exact path="/reflect-task/404" element={<FindNotFound/>} />
         </Routes>
         <Routes>
           {/* <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} /> */}

@@ -1,4 +1,3 @@
-// import { useNavigate } from 'react-router-dom';
 import { Input, Slider } from 'antd';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,6 +10,7 @@ import dayjs from 'dayjs';
 const { TextArea } = Input;
 
 function TaskReflect({userProfile}) {
+  const navigate = useNavigate();
   const [isSelf, setIsSelf] = useState(false)
   const { taskId: taskId } = useParams()
   const [task, setTask] = useState()
@@ -22,8 +22,13 @@ function TaskReflect({userProfile}) {
 
   const setUpTask = async () => {
     const response = await getTask(taskId)
-    setTask(response)
-    setIsSelf(userProfile['student']['_id'] == response['student_id'])
+    if(task){
+      setTask(response)
+      setIsSelf(userProfile['student']['_id'] == response['student_id'])
+    }
+    else{
+      navigate('/reflect-task/404')
+    }
   }
   
 

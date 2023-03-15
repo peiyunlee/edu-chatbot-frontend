@@ -87,7 +87,7 @@ export const completeTask = async (taskId, finishDate) => {
     }
 }
 
-export const updateTask = async (taskId, taskName, plan, handOverDate, handOver) => {
+export const updateTask = async (taskId, taskName, plan, handOverDate, handOver, lineUserId) => {
     try {
         const task = {
             task_name: taskName,
@@ -95,7 +95,7 @@ export const updateTask = async (taskId, taskName, plan, handOverDate, handOver)
             hand_over_date: handOverDate,
             hand_over: handOver
         }
-        const url = `${baseURL}/task/id/${taskId}`
+        const url = `${baseURL}/task/id/${taskId}/LUID/${lineUserId}`
         const response = await axios.patch(url, task, {
             headers: {
                 'Accept': 'application/json'
