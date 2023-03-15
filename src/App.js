@@ -44,7 +44,7 @@ function App() {
           {/* <Route path="/reflect" element={<Navigate replace to="/reflect/task" />} />
           <Route path="/reflect/task" element={<Navigate replace to="/reflect/task/1" />} /> */}
           <Route exact path="/reflect-task/:taskId" element={<TaskReflect userProfile={userProfile}/>} />
-          <Route exact path="/reflect-task/404" element={<FindNotFound/>} />
+          <Route exact path="/notfound" element={<FindNotFound/>} />
         </Routes>
         <Routes>
           {/* <Route exact path="/reflect/hw" element={<Navigate replace to="/reflect/hw/1" />} /> */}

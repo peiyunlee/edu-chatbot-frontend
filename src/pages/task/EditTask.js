@@ -67,12 +67,12 @@ function EditTask({userProfile}) {
   };
 
   const handleClickEdit = async () => {
-    const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'], userProfile['user_id'])
+    const resposne = await updateTask(taskId, taskInfoInput['taskName'],taskInfoInput['plan'], taskInfoInput['handOverDate'], taskInfoInput['handOver'], userProfile['userId'])
     navigate(`/task/hw/${HWNo}`)
   }
 
   const handleClickDelete = async () => {
-    const resposne = await deleteTask(taskId , userProfile['user_id'])
+    const resposne = await deleteTask(taskId , userProfile['userId'])
     navigate(`/task/hw/${HWNo}`);
   }
 

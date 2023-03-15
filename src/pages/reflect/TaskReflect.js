@@ -27,7 +27,7 @@ function TaskReflect({userProfile}) {
       setIsSelf(userProfile['student']['_id'] == response['student_id'])
     }
     else{
-      navigate('/reflect-task/404')
+      navigate('/notfound')
     }
   }
   

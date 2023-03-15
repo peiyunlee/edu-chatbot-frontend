@@ -21,6 +21,7 @@ function Task({ isSomeone, title, data }) {
 
     const handleClickClaim = () => {
         const response = claimTask(userProfile.userId, data._id)
+        navigate(0)
         navigate(`/task/hw/${HWNo}`)
     }
 
