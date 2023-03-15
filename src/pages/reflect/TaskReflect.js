@@ -22,7 +22,7 @@ function TaskReflect({userProfile}) {
 
   const setUpTask = async () => {
     const response = await getTask(taskId)
-    if(task){
+    if(response){
       setTask(response)
       setIsSelf(userProfile['student']['_id'] == response['student_id'])
     }
