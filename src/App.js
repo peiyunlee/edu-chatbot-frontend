@@ -29,7 +29,7 @@ function App() {
           {/* <Route exact path="/" element={<Navigate replace to="/task/hw/1" />} /> */}
           <Route exact path="/task/hw/:HWNo" element={<TaskHome userProfile={userProfile} />} />
           <Route exact path="/task/hw/:HWNo/create" element={<AddTask userProfile={userProfile}/>} />
-          <Route exact path="/task/hw/:HWNo/edit/:taskId" element={<EditTask />} />
+          <Route exact path="/task/hw/:HWNo/edit/:taskId" element={<EditTask userProfile={userProfile}/>} />
         </Routes>
       </ConfigProvider>
       <ConfigProvider

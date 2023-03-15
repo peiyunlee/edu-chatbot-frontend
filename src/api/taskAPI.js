@@ -108,9 +108,9 @@ export const updateTask = async (taskId, taskName, plan, handOverDate, handOver)
 }
 
 
-export const deleteTask = async (taskId) => {
+export const deleteTask = async (taskId, lineUserId) => {
     try {
-        const url = `${baseURL}/task/id/${taskId}`
+        const url = `${baseURL}/task/id/${taskId}/LUID/${lineUserId}`
         const response = await axios.delete(url, {
             headers: {
                 'Accept': 'application/json'

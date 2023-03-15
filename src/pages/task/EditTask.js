@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 const { TextArea } = Input;
 const dateFormat = 'MM/DD';
 
-function EditTask() {
+function EditTask({userProfile}) {
   const navigate = useNavigate();
   const { HWNo: HWNo, taskId: taskId } = useParams();
   const [taskInfo, setTaskInfo] = useState({
@@ -72,7 +72,7 @@ function EditTask() {
   }
 
   const handleClickDelete = async () => {
-    const resposne = await deleteTask(taskId)
+    const resposne = await deleteTask(taskId , userProfile['user_id'])
     navigate(`/task/hw/${HWNo}`);
   }
 
