@@ -109,6 +109,7 @@ function HWReflect({ userProfile }) {
     return (
         <div>
             <ReflectHeader title={"作業查核與成果回饋工具"} />
+            <h1>{userProfile ? userProfile.userId : ""}</h1>
             {
                 showHWCheck ?
                     <HWCheck isComplete={isHWCheckComplete} HWNo={HWNo} homework={homework} checkLists={checkLists} setCheckLists={setCheckLists} /> :
