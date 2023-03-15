@@ -70,14 +70,14 @@ function InitializeLiff(){
   }, [lineAccessToken])
 
   const initializeLiff = () => {
-    let liffId = '1660700459-XZKAApq7'
+    let liffId = process.env.REACT_APP_LIFF_ID_TASK_TOOL
     const path = location.pathname.split("/", 2)
     if (path[1] == 'task')
-      liffId = '1660700459-XZKAApq7'
+      liffId = process.env.REACT_APP_LIFF_ID_TASK_TOOL
     else if (path[1] == 'reflect-task')
-      liffId = '1660700459-Dgw33JG5'
+      liffId = process.env.REACT_APP_LIFF_ID_REFLECT_TASK
     else if (path[1] == 'reflect-hw')
-      liffId = '1660700459-lWN44Az0'
+      liffId = process.env.REACT_APP_LIFF_ID_REFLECT_HW
     
     console.log(location.pathname)
     console.log(path)
