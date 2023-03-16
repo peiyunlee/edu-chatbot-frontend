@@ -190,7 +190,7 @@ function MemberReflect({task, userProfile}) {
       return    
     const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, false)
     navigate(0)
-    navigate(`/reflect-task/${task['_id']}`)
+    // navigate(`/reflect-task/${task['_id']}`)
   }
 
   const handleSliderChange = (value) => {

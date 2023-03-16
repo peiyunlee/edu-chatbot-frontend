@@ -22,7 +22,7 @@ function Task({ isSomeone, title, data }) {
     const handleClickClaim = async () => {
         const response = await claimTask(userProfile.userId, data._id)
         navigate(0)
-        navigate(`/task/hw/${HWNo}`)
+        // navigate(`/task/hw/${HWNo}`)
     }
 
     return (
