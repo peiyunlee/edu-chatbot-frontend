@@ -189,7 +189,7 @@ function MemberReflect({task, userProfile}) {
     if(reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || sliderValue == 0)
       return    
     const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, false)
-    navigate(0)
+    // navigate(0)
     navigate(`/reflect-task/${task['_id']}`)
   }
 
