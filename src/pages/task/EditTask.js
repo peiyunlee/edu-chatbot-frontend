@@ -100,8 +100,8 @@ function EditTask({userProfile}) {
       </div>
       <div className="h-1 bg-gray-300 my-2"></div>
       <div className="grid grid-flow-col gap-3">
-        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickDelete();  }}>刪除</a>
-        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickEdit();  }}>編輯</a>
+        <a href="/#" className="block bg-red-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickDelete(); }}>刪除</a>
+        <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickEdit(); }}>編輯</a>
       </div>
       </section>
     </div>
