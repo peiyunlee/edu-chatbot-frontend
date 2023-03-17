@@ -18,7 +18,7 @@ function TaskHome({ userProfile }) {
     if (userProfile) {
       updateTaskLists()
     }
-  }, [userProfile])
+  }, [])
 
   const updateTaskLists = async () => {
     const res_taskList = await getTaskList(userProfile.userId, HWNo)
