@@ -168,7 +168,7 @@ function MemberReflect({task, userProfile}) {
       //取得學生名字
       setTaskStudentInfo()
     }
-  }, [])
+  }, [task, userProfile])
 
   const setUpReflectInfo = async () => {
     const response = await getReflectTask(task['_id'],userProfile['student']['_id'])
@@ -189,8 +189,8 @@ function MemberReflect({task, userProfile}) {
     if(reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || sliderValue == 0)
       return    
     const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, false)
-    navigate(0)
-    // navigate(`/reflect-task/${task['_id']}`)
+    // navigate(0)
+    navigate(`/reflect-task/${task['_id']}`)
   }
 
   const handleSliderChange = (value) => {

@@ -42,8 +42,8 @@ function HWReflect({ userProfile }) {
             const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)
             setIsReflectFormComplete(true)
             setShowHWCheck(true)
-            navigate(0)
-            // navigate(`/reflect-hw/${HWNo}`)
+            // navigate(0)
+            navigate(`/reflect-hw/${HWNo}`)
         }
         else if (isHWCheckComplete && isReflectFormComplete) {
             setShowHWCheck(!showHWCheck)
@@ -57,7 +57,7 @@ function HWReflect({ userProfile }) {
             setUpHomework()
             setUpReflectInfo()
         }
-    }, [])
+    }, [HWNo, userProfile])
 
     const setUpReflectInfo = async () => {
         const res_reflect = await getHomeworkReflect(HWNo, userProfile['student']['_id'])
