@@ -142,7 +142,7 @@ function SelfReflect({task, userProfile}) {
       </div>
       {
         !isComplete ?
-          <a href="/#" className="block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>確認</a> :
+          <a href="/#" className="block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>確認</a> :
           <></>
       }
     </section>
@@ -189,8 +189,8 @@ function MemberReflect({task, userProfile}) {
     if(reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || sliderValue == 0)
       return    
     const res_reflect = await createReflectTask(userProfile.userId, task['_id'], reflectInfo['reflect1'], reflectInfo['reflect2'], sliderValue, false)
-    // navigate(0)
-    navigate(`/reflect-task/${task['_id']}`)
+    navigate(0)
+    // navigate(`/reflect-task/${task['_id']}`)
   }
 
   const handleSliderChange = (value) => {
@@ -257,7 +257,7 @@ function MemberReflect({task, userProfile}) {
       </div>
       {
         !isComplete ?
-          <a href="/#" className="block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>確認</a> :
+          <a href="/#" className="block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>確認</a> :
           <></>
       }
     </section>

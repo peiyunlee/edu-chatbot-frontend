@@ -42,8 +42,8 @@ function HWReflect({ userProfile }) {
             const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)
             setIsReflectFormComplete(true)
             setShowHWCheck(true)
-            // navigate(0)
-            navigate(`/reflect-hw/${HWNo}`)
+            navigate(0)
+            // navigate(`/reflect-hw/${HWNo}`)
         }
         else if (isHWCheckComplete && isReflectFormComplete) {
             setShowHWCheck(!showHWCheck)
@@ -120,7 +120,7 @@ function HWReflect({ userProfile }) {
                     <a
                         href="/#"
                         className="mx-4 block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2"
-                        onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>
+                        onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>
                         {isHWCheckComplete ? "確認" : "填寫成果回饋"}
                     </a> :
                     <></>
@@ -130,7 +130,7 @@ function HWReflect({ userProfile }) {
                     <a
                         href="/#"
                         className="mx-4 block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2"
-                        onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>
+                        onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>
                         {showHWCheck ? "查看我的成果回饋" : "查看我的作業查核結果"}
                     </a> :
                     <></>

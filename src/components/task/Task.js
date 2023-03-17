@@ -21,13 +21,13 @@ function Task({ isSomeone, title, data }) {
 
     const handleClickClaim = async () => {
         const response = await claimTask(userProfile.userId, data._id)
-        // navigate(0)
-        navigate(`/task/hw/${HWNo}`)
+        navigate(0)
+        // navigate(`/task/hw/${HWNo}`)
     }
 
     return (
         <div className="bg-gray-200 rounded-md p-3">
-            <a href="/#" className="grid gap-4 my-1" onClick={(e) => { handleClickShowInfo(); e.preventDefault(); }}>
+            <a href="/#" className="grid gap-4 my-1" onClick={(e) => { e.preventDefault(); handleClickShowInfo(); }}>
                 <div className="flex items-center">
                     <span className="flex-1 mr-4 font-bold">{data.task_name}</span>
                     <span className="w-14 text-center mr-4">{data.hand_over_date}</span>
@@ -54,10 +54,10 @@ function Task({ isSomeone, title, data }) {
             {
                 showInfo && !data.is_finish ?
                     <div className="grid grid-flow-col gap-3 mt-3">
-                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { navigate(`/task/hw/${HWNo}/edit/${data._id}`); e.preventDefault(); }}>編輯</a>
+                        <a href="/#" className="block bg-gray-300 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); navigate(`/task/hw/${HWNo}/edit/${data._id}`); }}>編輯</a>
                         {data.student_id == '' ?
-                            <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickClaim(); e.preventDefault(); }}>認領</a> : 
-                            data.student_id == userProfile['student']['_id'] ? <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { handleClickComplete(); e.preventDefault(); }}>完成</a>:<></>
+                            <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickClaim();  }}>認領</a> : 
+                            data.student_id == userProfile['student']['_id'] ? <a href="/#" className="block bg-green-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2" onClick={(e) => { e.preventDefault(); handleClickComplete();  }}>完成</a>:<></>
                         }
                     </div> :
                     <></>
