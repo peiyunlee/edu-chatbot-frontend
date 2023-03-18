@@ -38,11 +38,10 @@ function HWReflect({ userProfile }) {
             setClickComplete(clickComplete + 1)
             if (reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || reflectInfo['reflect3'] == '' || reflectInfo['reflect4'] == '' || groupScore == 0 || score == 0)
                 return
-            console.log("aa")            
+            const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)          
             setIsReflectFormComplete(true)
             setShowHWCheck(true)
-            const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)
-            navigate('0')
+            navigate(0)
         }
         else if (isHWCheckComplete && isReflectFormComplete) {
             setShowHWCheck(!showHWCheck)
