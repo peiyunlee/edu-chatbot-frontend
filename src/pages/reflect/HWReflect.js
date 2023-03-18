@@ -91,16 +91,16 @@ function HWReflect({ userProfile }) {
             response['rule2_contents'].forEach(item => {
                 temp.push(false)
             });
-            lists.push(temp)
         }
+        lists.push(temp)
 
         if (!response['rule3_title'] == '') {
             temp = []
             response['rule3_contents'].forEach(item => {
                 temp.push(false)
             });
-            lists.push(temp)
         }
+        lists.push(temp)
 
         setCheckLists(lists)
     }
