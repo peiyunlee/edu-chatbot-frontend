@@ -110,7 +110,7 @@ function HWReflect({ userProfile }) {
         <div>
             <ReflectHeader title={"作業查核與成果回饋工具"} />
             {
-                showHWCheck ?
+                showHWCheck && userProfile ?
                     <HWCheck isComplete={isHWCheckComplete} HWNo={HWNo} homework={homework} checkLists={checkLists} setCheckLists={setCheckLists} /> :
                     <ReflectForm isComplete={isReflectFormComplete} HWNo={HWNo} homework={homework} reflectInfo={reflectInfo} setReflectInfo={setReflectInfo} groupScore={groupScore} setGroupScore={setGroupScore} score={score} setScore={setScore} clickComplete={clickComplete} />
             }
