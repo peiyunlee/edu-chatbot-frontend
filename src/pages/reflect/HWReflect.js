@@ -38,11 +38,10 @@ function HWReflect({ userProfile }) {
             setClickComplete(clickComplete + 1)
             if (reflectInfo['reflect1'] == '' || reflectInfo['reflect2'] == '' || reflectInfo['reflect3'] == '' || reflectInfo['reflect4'] == '' || groupScore == 0 || score == 0)
                 return
-            console.log("aa")
-            const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)
+            const res_reflect = await createHomeworkReflect(HWNo, userProfile['userId'], reflectInfo, checkLists, groupScore, score)          
             setIsReflectFormComplete(true)
             setShowHWCheck(true)
-            navigate(`/reflect-hw/${HWNo}`)
+            navigate(0)
         }
         else if (isHWCheckComplete && isReflectFormComplete) {
             setShowHWCheck(!showHWCheck)
@@ -90,16 +89,16 @@ function HWReflect({ userProfile }) {
             response['rule2_contents'].forEach(item => {
                 temp.push(false)
             });
-            lists.push(temp)
         }
+        lists.push(temp)
 
         if (!response['rule3_title'] == '') {
             temp = []
             response['rule3_contents'].forEach(item => {
                 temp.push(false)
             });
-            lists.push(temp)
         }
+        lists.push(temp)
 
         setCheckLists(lists)
     }
@@ -109,7 +108,7 @@ function HWReflect({ userProfile }) {
         <div>
             <ReflectHeader title={"作業查核與成果回饋工具"} />
             {
-                showHWCheck ?
+                showHWCheck && userProfile ?
                     <HWCheck isComplete={isHWCheckComplete} HWNo={HWNo} homework={homework} checkLists={checkLists} setCheckLists={setCheckLists} /> :
                     <ReflectForm isComplete={isReflectFormComplete} HWNo={HWNo} homework={homework} reflectInfo={reflectInfo} setReflectInfo={setReflectInfo} groupScore={groupScore} setGroupScore={setGroupScore} score={score} setScore={setScore} clickComplete={clickComplete} />
             }
@@ -118,7 +117,7 @@ function HWReflect({ userProfile }) {
                     <a
                         href="/#"
                         className="mx-4 block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2"
-                        onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>
+                        onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>
                         {isHWCheckComplete ? "確認" : "填寫成果回饋"}
                     </a> :
                     <></>
@@ -128,7 +127,7 @@ function HWReflect({ userProfile }) {
                     <a
                         href="/#"
                         className="mx-4 block bg-purple-400 py-2 text-white font-bold text-center rounded-md shadow-btn mt-2"
-                        onClick={(e) => { handleClickCheck(); e.preventDefault(); }}>
+                        onClick={(e) => { e.preventDefault(); handleClickCheck(); }}>
                         {showHWCheck ? "查看我的成果回饋" : "查看我的作業查核結果"}
                     </a> :
                     <></>
