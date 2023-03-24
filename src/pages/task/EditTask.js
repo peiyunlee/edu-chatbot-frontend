@@ -63,7 +63,7 @@ function EditTask({userProfile}) {
   const handleDateChange = (date, dateString) => {
     let temp = taskInfo
     temp['handOverDate'] = dateString
-    setTaskInfo(temp)
+    setTaskInfoInput(temp)
   };
 
   const handleClickEdit = async () => {
